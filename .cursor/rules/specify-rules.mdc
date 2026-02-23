@@ -1,0 +1,29 @@
+# spec-kit Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-02-23
+
+## Active Technologies
+
+- Markdown (artifacts), YAML (optional structured metadata), bash (scripts), PowerShell (scripts). No new language or runtime; existing Spec Kit repo tooling. + None beyond POSIX shell and PowerShell Core for scripts; optional Git for version control and file history. (001-book-universe-framework)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+# Add commands for Markdown (artifacts), YAML (optional structured metadata), bash (scripts), PowerShell (scripts). No new language or runtime; existing Spec Kit repo tooling.
+
+## Code Style
+
+Markdown (artifacts), YAML (optional structured metadata), bash (scripts), PowerShell (scripts). No new language or runtime; existing Spec Kit repo tooling.: Follow standard conventions
+
+## Recent Changes
+
+- 001-book-universe-framework: Added Markdown (artifacts), YAML (optional structured metadata), bash (scripts), PowerShell (scripts). No new language or runtime; existing Spec Kit repo tooling. + None beyond POSIX shell and PowerShell Core for scripts; optional Git for version control and file history.
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->

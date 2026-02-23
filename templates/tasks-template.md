@@ -1,161 +1,98 @@
 ---
 
-description: "Task list template for feature implementation"
+description: "Writing-steps template for book/universe implementation"
 ---
 
-# Tasks: [FEATURE NAME]
+# Writing Steps (Tasks): [BOOK OR UNIVERSE NAME]
 
 **Input**: Design documents from `/specs/[###-feature-name]/`
-**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
+**Prerequisites**: plan.md (structure), spec.md (outline), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Test tasks are OPTIONAL - include only if requested in the outline.
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+**Organization**: Steps are grouped by user story so each story can be implemented and validated independently.
 
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
+- **[Story]**: User story label (e.g. US1, US2) for story phases
 - Include exact file paths in descriptions
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **Framework root**: `.universe/` (config, templates, memory)
+- **Templates**: `.universe/templates/` and `.universe/templates/universe/`
+- **Scripts**: `scripts/bash/`, `scripts/powershell/`
+- **Author content**: Created under `universe/` at project root by scripts
 
 <!-- 
-  ============================================================================
-  IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
-  
-  The /speckit.tasks command MUST replace these with actual tasks based on:
-  - User stories from spec.md (with their priorities P1, P2, P3...)
-  - Feature requirements from plan.md
-  - Entities from data-model.md
-  - Endpoints from contracts/
-  
-  Tasks MUST be organized by user story so each story can be:
-  - Implemented independently
-  - Tested independently
-  - Delivered as an MVP increment
-  
-  DO NOT keep these sample tasks in the generated tasks.md file.
-  ============================================================================
+  The tasks command MUST replace sample tasks with actual tasks from:
+  - User stories in spec.md (outline)
+  - Plan (structure), data-model, contracts
+  Organized by user story for independent implementation and testing.
+  DO NOT keep sample tasks in the generated tasks.md.
 -->
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-**Purpose**: Project initialization and basic structure
+**Purpose**: Framework directory structure and author-facing layout
 
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T001 Create `.universe/` directory structure (memory/, templates/, templates/universe/) at repository root
+- [ ] T002 [P] Create `.universe/memory/writing-principles.md` from constitution or placeholder
+- [ ] T003 [P] Create templates in `.universe/templates/` (writing-principles, structure, outline, writing-steps, checklist, agent-file)
+- [ ] T004 Ensure `scripts/bash/` and `scripts/powershell/` exist at repository root
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
+**Purpose**: All content templates and shared script logic MUST exist before any user-story script can run
 
-**⚠️ CRITICAL**: No user story work can begin until this phase is complete
+**Checkpoint**: Foundation ready — user story implementation can begin
 
-Examples of foundational tasks (adjust based on your project):
-
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
-
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+- [ ] T005 [P] Create universe content templates in `.universe/templates/universe/` (universe, series, book, character, plotline, chapter-guide, chapter-content, continuity-log, timeline, foreshadowing-register, versioning-metadata)
+- [ ] T006 Create `scripts/bash/common-universe.sh` (REPO_ROOT, template path, slug validation)
+- [ ] T007 Create `scripts/powershell/Common-Universe.ps1` with equivalent helpers
 
 ---
 
-## Phase 3: User Story 1 - [Title] (Priority: P1) 🎯 MVP
+## Phase 3: User Story 1 - Define Universe (Priority: P1) — MVP
 
-**Goal**: [Brief description of what this story delivers]
+**Goal**: Author can create a universe and set genre, style, world rules.
 
-**Independent Test**: [How to verify this story works on its own]
-
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
-
-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
-
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+**Independent Test**: Run universe-init; edit universe/universe.md with genre and at least two rule categories.
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T008 [US1] Implement universe-init.sh and Universe-Init.ps1 (create universe/, universe.md, continuity-log, timeline, foreshadowing-register from templates)
+- [ ] T009 [US1] Add author-facing success/error messages (no "spec" or "feature" in messages)
 
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+**Checkpoint**: Author can run universe-init and get universe.md template; US1 test passes.
 
 ---
 
-## Phase 4: User Story 2 - [Title] (Priority: P2)
+## Phase 4: User Story 2 - Series and Book Structure (Priority: P2)
 
-**Goal**: [Brief description of what this story delivers]
-
-**Independent Test**: [How to verify this story works on its own]
-
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
-
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+**Goal**: Author can define series and add books with outline and act structure.
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T010 [P] [US2] Implement universe-add-series (bash + PowerShell)
+- [ ] T011 [US2] Implement universe-add-book (bash + PowerShell)
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
+**Checkpoint**: Author can add series and books; US2 test passes.
 
 ---
 
-## Phase 5: User Story 3 - [Title] (Priority: P3)
+## Phase 5+: User Stories 3–6 and Polish
 
-**Goal**: [Brief description of what this story delivers]
+**Goal**: Characters, plotlines, chapters, generation, continuity/versioning, list-affected; then validate-setup, add-book/setup-structure wrappers, lint, quickstart validation, README.
 
-**Independent Test**: [How to verify this story works on its own]
-
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
-
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
-
-### Implementation for User Story 3
-
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
-
-**Checkpoint**: All user stories should now be independently functional
-
----
-
-[Add more user story phases as needed, following the same pattern]
-
----
-
-## Phase N: Polish & Cross-Cutting Concerns
-
-**Purpose**: Improvements that affect multiple user stories
-
-- [ ] TXXX [P] Documentation updates in docs/
-- [ ] TXXX Code cleanup and refactoring
-- [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
-- [ ] TXXX Run quickstart.md validation
+- [ ] T012+ [US3] universe-add-character
+- [ ] T013+ [US4] universe-add-plotline, universe-add-chapter
+- [ ] T014+ [US5] universe-generate-chapter, universe-generate-content (context, prompts; on failure do not overwrite)
+- [ ] T015+ [US6] universe-versioning, universe-list-affected; verify continuity/timeline/foreshadowing at init
+- [ ] T016+ [Polish] validate-setup, add-book, setup-structure; shellcheck/PSScriptAnalyzer; quickstart validation; README
 
 ---
 
@@ -163,89 +100,22 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Phase Dependencies
 
-- **Setup (Phase 1)**: No dependencies - can start immediately
-- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
-- **User Stories (Phase 3+)**: All depend on Foundational phase completion
-  - User stories can then proceed in parallel (if staffed)
-  - Or sequentially in priority order (P1 → P2 → P3)
-- **Polish (Final Phase)**: Depends on all desired user stories being complete
-
-### User Story Dependencies
-
-- **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
-- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - May integrate with US1 but should be independently testable
-- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - May integrate with US1/US2 but should be independently testable
-
-### Within Each User Story
-
-- Tests (if included) MUST be written and FAIL before implementation
-- Models before services
-- Services before endpoints
-- Core implementation before integration
-- Story complete before moving to next priority
+- **Phase 1 (Setup)**: No dependencies.
+- **Phase 2 (Foundational)**: Depends on Phase 1 — blocks all user stories.
+- **Phase 3+**: Each user story phase depends on Phase 2; US2 on US1 (universe exists); US4 on US2 (book exists); US5 on US4 (chapter with guide); US6 on US3/US4.
+- **Polish**: Depends on Phases 3–8 complete.
 
 ### Parallel Opportunities
 
-- All Setup tasks marked [P] can run in parallel
-- All Foundational tasks marked [P] can run in parallel (within Phase 2)
-- Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
-- All tests for a user story marked [P] can run in parallel
-- Models within a story marked [P] can run in parallel
-- Different user stories can be worked on in parallel by different team members
-
----
-
-## Parallel Example: User Story 1
-
-```bash
-# Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
-
-# Launch all models for User Story 1 together:
-Task: "Create [Entity1] model in src/models/[entity1].py"
-Task: "Create [Entity2] model in src/models/[entity2].py"
-```
-
----
-
-## Implementation Strategy
-
-### MVP First (User Story 1 Only)
-
-1. Complete Phase 1: Setup
-2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
-3. Complete Phase 3: User Story 1
-4. **STOP and VALIDATE**: Test User Story 1 independently
-5. Deploy/demo if ready
-
-### Incremental Delivery
-
-1. Complete Setup + Foundational → Foundation ready
-2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
-3. Add User Story 2 → Test independently → Deploy/Demo
-4. Add User Story 3 → Test independently → Deploy/Demo
-5. Each story adds value without breaking previous stories
-
-### Parallel Team Strategy
-
-With multiple developers:
-
-1. Team completes Setup + Foundational together
-2. Once Foundational is done:
-   - Developer A: User Story 1
-   - Developer B: User Story 2
-   - Developer C: User Story 3
-3. Stories complete and integrate independently
+- Within Phase 2: template creation and common scripts can run in parallel.
+- Add-series and add-book can run in parallel; add-character, add-plotline, add-chapter similarly where no same-file dependency.
 
 ---
 
 ## Notes
 
-- [P] tasks = different files, no dependencies
-- [Story] label maps task to specific user story for traceability
-- Each user story should be independently completable and testable
-- Verify tests fail before implementing
-- Commit after each task or logical group
-- Stop at any checkpoint to validate story independently
-- Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
+- [P] = parallelizable (different files, no dependency).
+- [USn] = task belongs to that user story for traceability.
+- All script paths: repository root `scripts/bash/` and `scripts/powershell/`.
+- Template paths: `.universe/templates/` and `.universe/templates/universe/`.
+- Author content is created under `universe/` at the directory where the author runs the scripts.

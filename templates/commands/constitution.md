@@ -1,9 +1,9 @@
 ---
-description: Create or update the project constitution from interactive or provided principle inputs, ensuring all dependent templates stay in sync.
+description: Create or update writing principles (constitution) from interactive or provided inputs; keep dependent templates in sync.
 handoffs: 
-  - label: Build Specification
-    agent: speckit.specify
-    prompt: Implement the feature specification based on the updated constitution. I want to build...
+  - label: Build Outline
+    agent: speckit.outline
+    prompt: Create/update the outline based on the updated writing principles. I want to build...
 ---
 
 ## User Input
@@ -16,13 +16,13 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
-You are updating the project constitution at `.specify/memory/constitution.md`. This file is a TEMPLATE containing placeholder tokens in square brackets (e.g. `[PROJECT_NAME]`, `[PRINCIPLE_1_NAME]`). Your job is to (a) collect/derive concrete values, (b) fill the template precisely, and (c) propagate any amendments across dependent artifacts.
+You are updating the project writing principles at `.specify/memory/constitution.md` (or `.universe/memory/writing-principles.md` for book/universe projects). The file is a TEMPLATE with placeholder tokens in square brackets (e.g. `[PROJECT_NAME]`, `[PRINCIPLE_1_NAME]`). Your job is to (a) collect/derive concrete values, (b) fill the template precisely, and (c) propagate any amendments across dependent artifacts.
 
-**Note**: If `.specify/memory/constitution.md` does not exist yet, it should have been initialized from `.specify/templates/constitution-template.md` during project setup. If it's missing, copy the template first.
+**Note**: If the target file does not exist yet, it should have been initialized from the constitution/writing-principles template during project setup. If it's missing, copy from `.specify/templates/constitution-template.md` (or repo `templates/constitution-template.md`) first.
 
 Follow this execution flow:
 
-1. Load the existing constitution at `.specify/memory/constitution.md`.
+1. Load the existing writing principles (e.g. `.specify/memory/constitution.md` or `.universe/memory/writing-principles.md`).
    - Identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
    **IMPORTANT**: The user might require less or more principles than the ones used in the template. If a number is specified, respect that - follow the general template. You will update the doc accordingly.
 
@@ -43,9 +43,9 @@ Follow this execution flow:
    - Ensure Governance section lists amendment procedure, versioning policy, and compliance review expectations.
 
 4. Consistency propagation checklist (convert prior checklist into active validations):
-   - Read `.specify/templates/plan-template.md` and ensure any "Constitution Check" or rules align with updated principles.
-   - Read `.specify/templates/spec-template.md` for scope/requirements alignment—update if constitution adds/removes mandatory sections or constraints.
-   - Read `.specify/templates/tasks-template.md` and ensure task categorization reflects new or removed principle-driven task types (e.g., observability, versioning, testing discipline).
+   - Read `.specify/templates/plan-template.md` (or repo `templates/plan-template.md`) and ensure any "Writing Principles / Constitution Check" aligns with updated principles.
+   - Read `.specify/templates/spec-template.md` (or repo `templates/spec-template.md`) for scope/requirements alignment—update if principles add/remove mandatory sections.
+   - Read `.specify/templates/tasks-template.md` (or repo `templates/tasks-template.md`) and ensure task categorization reflects principle-driven task types.
    - Read each command file in `.specify/templates/commands/*.md` (including this one) to verify no outdated references (agent-specific names like CLAUDE only) remain when generic guidance is required.
    - Read any runtime guidance docs (e.g., `README.md`, `docs/quickstart.md`, or agent-specific guidance files if present). Update references to principles changed.
 
@@ -63,7 +63,7 @@ Follow this execution flow:
    - Dates ISO format YYYY-MM-DD.
    - Principles are declarative, testable, and free of vague language ("should" → replace with MUST/SHOULD rationale where appropriate).
 
-7. Write the completed constitution back to `.specify/memory/constitution.md` (overwrite).
+7. Write the completed writing principles back to the same file (e.g. `.specify/memory/constitution.md` or `.universe/memory/writing-principles.md`) (overwrite).
 
 8. Output a final summary to the user with:
    - New version and bump rationale.
@@ -81,4 +81,4 @@ If the user supplies partial updates (e.g., only one principle revision), still 
 
 If critical info missing (e.g., ratification date truly unknown), insert `TODO(<FIELD_NAME>): explanation` and include in the Sync Impact Report under deferred items.
 
-Do not create a new template; always operate on the existing `.specify/memory/constitution.md` file.
+Do not create a new template; always operate on the existing constitution/writing-principles file (e.g. `.specify/memory/constitution.md` or `.universe/memory/writing-principles.md`).

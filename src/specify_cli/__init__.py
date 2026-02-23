@@ -986,14 +986,14 @@ def ensure_constitution_from_template(project_path: Path, tracker: StepTracker |
     # If constitution already exists in memory, preserve it
     if memory_constitution.exists():
         if tracker:
-            tracker.add("constitution", "Constitution setup")
+            tracker.add("constitution", "Writing principles / constitution setup")
             tracker.skip("constitution", "existing file preserved")
         return
 
     # If template doesn't exist, something went wrong with extraction
     if not template_constitution.exists():
         if tracker:
-            tracker.add("constitution", "Constitution setup")
+            tracker.add("constitution", "Writing principles / constitution setup")
             tracker.error("constitution", "template not found")
         return
 
@@ -1002,16 +1002,16 @@ def ensure_constitution_from_template(project_path: Path, tracker: StepTracker |
         memory_constitution.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(template_constitution, memory_constitution)
         if tracker:
-            tracker.add("constitution", "Constitution setup")
+            tracker.add("constitution", "Writing principles / constitution setup")
             tracker.complete("constitution", "copied from template")
         else:
-            console.print("[cyan]Initialized constitution from template[/cyan]")
+            console.print("[cyan]Initialized writing principles (constitution) from template[/cyan]")
     except Exception as e:
         if tracker:
-            tracker.add("constitution", "Constitution setup")
+            tracker.add("constitution", "Writing principles / constitution setup")
             tracker.error("constitution", str(e))
         else:
-            console.print(f"[yellow]Warning: Could not initialize constitution: {e}[/yellow]")
+            console.print(f"[yellow]Warning: Could not initialize writing principles (constitution): {e}[/yellow]")
 
 # Agent-specific skill directory overrides for agents whose skills directory
 # doesn't follow the standard <agent_folder>/skills/ pattern
@@ -1022,17 +1022,17 @@ AGENT_SKILLS_DIR_OVERRIDES = {
 # Default skills directory for agents not in AGENT_CONFIG
 DEFAULT_SKILLS_DIR = ".agents/skills"
 
-# Enhanced descriptions for each spec-kit command skill
+# Enhanced descriptions for each spec-kit command skill (outline → structure → writing steps; supports both software and book/universe workflows)
 SKILL_DESCRIPTIONS = {
-    "specify": "Create or update feature specifications from natural language descriptions. Use when starting new features or refining requirements. Generates spec.md with user stories, functional requirements, and acceptance criteria following spec-driven development methodology.",
-    "plan": "Generate technical implementation plans from feature specifications. Use after creating a spec to define architecture, tech stack, and implementation phases. Creates plan.md with detailed technical design.",
-    "tasks": "Break down implementation plans into actionable task lists. Use after planning to create a structured task breakdown. Generates tasks.md with ordered, dependency-aware tasks.",
-    "implement": "Execute all tasks from the task breakdown to build the feature. Use after task generation to systematically implement the planned solution following TDD approach where applicable.",
-    "analyze": "Perform cross-artifact consistency analysis across spec.md, plan.md, and tasks.md. Use after task generation to identify gaps, duplications, and inconsistencies before implementation.",
-    "clarify": "Structured clarification workflow for underspecified requirements. Use before planning to resolve ambiguities through coverage-based questioning. Records answers in spec clarifications section.",
-    "constitution": "Create or update project governing principles and development guidelines. Use at project start to establish code quality, testing standards, and architectural constraints that guide all development.",
-    "checklist": "Generate custom quality checklists for validating requirements completeness and clarity. Use to create unit tests for English that ensure spec quality before implementation.",
-    "taskstoissues": "Convert tasks from tasks.md into GitHub issues. Use after task breakdown to track work items in GitHub project management.",
+    "outline": "Create or update the outline (story bible) from a natural language description (feature, book, or universe). Use when starting new work or refining scope. Generates spec.md with user stories/plotlines, requirements, and acceptance criteria.",
+    "structure": "Generate structure/blueprint (plan) from the outline. Use after creating an outline to define architecture, tech stack, and implementation phases. Creates plan.md with detailed design.",
+    "tasks": "Break down the structure into actionable writing steps (tasks). Use after planning to create a structured task breakdown. Generates tasks.md with ordered, dependency-aware tasks.",
+    "implement": "Execute all writing steps from tasks.md to build the feature or deliver the work. Use after task generation to systematically implement the planned solution.",
+    "analyze": "Perform cross-artifact consistency analysis across outline (spec.md), structure (plan.md), and writing steps (tasks.md). Use after task generation to identify gaps and inconsistencies before implementation.",
+    "clarify": "Structured clarification workflow for underspecified outline/spec. Use before planning to resolve ambiguities through coverage-based questioning. Records answers in spec clarifications section.",
+    "constitution": "Create or update writing principles (constitution): governing principles and guidelines. Use at project start to establish quality, consistency, and constraints that guide all work (code or book/universe).",
+    "checklist": "Generate custom quality checklists for validating outline/requirements completeness and clarity. Use to ensure spec quality before implementation.",
+    "taskstoissues": "Convert writing steps from tasks.md into GitHub issues. Use after task breakdown to track work items in GitHub project management.",
 }
 
 
@@ -1397,7 +1397,7 @@ def init(
         ("zip-list", "Archive contents"),
         ("extracted-summary", "Extraction summary"),
         ("chmod", "Ensure scripts executable"),
-        ("constitution", "Constitution setup"),
+        ("constitution", "Writing principles / constitution setup"),
     ]:
         tracker.add(key, label)
     if ai_skills:
@@ -1553,8 +1553,8 @@ def init(
     steps_lines.append(f"{step_num}. Start using slash commands with your AI agent:")
 
     steps_lines.append("   2.1 [cyan]/speckit.constitution[/] - Establish project principles")
-    steps_lines.append("   2.2 [cyan]/speckit.specify[/] - Create baseline specification")
-    steps_lines.append("   2.3 [cyan]/speckit.plan[/] - Create implementation plan")
+    steps_lines.append("   2.2 [cyan]/speckit.outline[/] - Create outline (story bible / spec)")
+    steps_lines.append("   2.3 [cyan]/speckit.structure[/] - Create structure/blueprint (plan)")
     steps_lines.append("   2.4 [cyan]/speckit.tasks[/] - Generate actionable tasks")
     steps_lines.append("   2.5 [cyan]/speckit.implement[/] - Execute implementation")
 
@@ -1565,9 +1565,9 @@ def init(
     enhancement_lines = [
         "Optional commands that you can use for your specs [bright_black](improve quality & confidence)[/bright_black]",
         "",
-        "○ [cyan]/speckit.clarify[/] [bright_black](optional)[/bright_black] - Ask structured questions to de-risk ambiguous areas before planning (run before [cyan]/speckit.plan[/] if used)",
+        "○ [cyan]/speckit.clarify[/] [bright_black](optional)[/bright_black] - Ask structured questions to de-risk ambiguous areas before structure (run before [cyan]/speckit.structure[/] if used)",
         "○ [cyan]/speckit.analyze[/] [bright_black](optional)[/bright_black] - Cross-artifact consistency & alignment report (after [cyan]/speckit.tasks[/], before [cyan]/speckit.implement[/])",
-        "○ [cyan]/speckit.checklist[/] [bright_black](optional)[/bright_black] - Generate quality checklists to validate requirements completeness, clarity, and consistency (after [cyan]/speckit.plan[/])"
+        "○ [cyan]/speckit.checklist[/] [bright_black](optional)[/bright_black] - Generate quality checklists to validate requirements completeness, clarity, and consistency (after [cyan]/speckit.structure[/])"
     ]
     enhancements_panel = Panel("\n".join(enhancement_lines), title="Enhancement Commands", border_style="cyan", padding=(1,2))
     console.print()

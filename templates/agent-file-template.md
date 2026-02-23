@@ -1,28 +1,36 @@
-# [PROJECT NAME] Development Guidelines
+# Agent Rules / Context — [UNIVERSE OR BOOK NAME]
 
-Auto-generated from all feature plans. Last updated: [DATE]
+Optional file to provide context or instructions to your chosen AI agent (Cursor, Claude, Gemini, etc.) when generating or editing content. The framework may merge this with universe, characters, and plotlines when building prompts.
 
-## Active Technologies
+**Last updated**: [DATE]
 
-[EXTRACTED FROM ALL PLAN.MD FILES]
+## Instructions for the Agent
 
-## Project Structure
+- **Tone**: [e.g. literary, commercial, dark, hopeful]
+- **Style**: [e.g. close third person, present tense, short chapters]
+- **Avoid**: [e.g. anachronisms, modern slang, explicit content]
+- **Language**: [e.g. English, Italian]
+
+## Key References
+
+- **Universe**: [Path or summary — e.g. universe/universe.md]
+- **Series**: [If applicable — series id and central conflict]
+- **Book(s)**: [Book ids and one-line premise]
+- **Main characters**: [Ids and one-line role]
+
+## Project Structure (for context)
 
 ```text
-[ACTUAL STRUCTURE FROM PLANS]
+universe/
+├── universe.md
+├── series/<id>/series.md
+├── books/<id>/book.md, plotlines/, chapters/
+├── characters/
+├── continuity-log.md
+├── timeline.md
+└── foreshadowing-register.md
 ```
 
-## Commands
+## Manual Additions
 
-[ONLY COMMANDS FOR ACTIVE TECHNOLOGIES]
-
-## Code Style
-
-[LANGUAGE-SPECIFIC, ONLY FOR LANGUAGES IN USE]
-
-## Recent Changes
-
-[LAST 3 FEATURES AND WHAT THEY ADDED]
-
-<!-- MANUAL ADDITIONS START -->
-<!-- MANUAL ADDITIONS END -->
+<!-- Add any extra instructions, do-not-use phrases, or style notes for the agent. -->

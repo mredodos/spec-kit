@@ -1,50 +1,45 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# [PROJECT NAME] Writing Principles (Constitution)
+
+<!-- Example: Spec Kit Writing Principles, [Universe Name] Writing Principles -->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Quality of Structure and Content
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- Keep universe and book structure modular and maintainable: clear outlines, consistent character profiles, coherent plotlines.
+- Document non-obvious choices (world rules, character arcs, key plot decisions) in English or your story language.
+- Use the framework's templates and checklists; avoid skipping steps that keep the narrative consistent.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Consistency for the Reader
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- User-facing content (chapter guides, character names, world rules) must be consistent across the book and series.
+- Wording and patterns (e.g. magic system terms, place names) must align with what you established unless you explicitly change them and update the continuity log.
+- Give clear feedback in your writing: setup and payoff should be traceable via the foreshadowing register.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Simplicity
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- Prefer the simplest structure that serves the story; avoid unnecessary subplots or world rules that never affect the narrative.
+- Complexity (extra characters, parallel timelines, many POVs) must be justified by the story.
+- Keep individual documents (character sheets, chapter guides) manageable in size so they stay usable.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Performance and Scope
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- Define performance goals for your workflow (e.g. how much you want to draft per session); framework scripts run quickly so you can focus on writing.
+- When using AI generation, the framework supplies context and prompts only; generation latency depends on your chosen agent.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Quality Gates
+
+- **Constitution Check**: Before major changes (e.g. new book in series), verify outline and structure still align with these principles.
+- **Consistency**: Use the continuity log, timeline, and foreshadowing register so that later chapters do not contradict earlier ones.
+
+## Workflow
+
+- Use the framework's commands (universe-init, add-book, add-chapter, etc.) as the primary way to create and organise your universe.
+- Significant changes (new world rule, character trait change) should trigger a review of affected chapters via the list-affected command.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- These principles override conflicting ad-hoc practices; amendments require documentation and approval.
+- All outlines, plans, and writing-steps should be checked for alignment with this document.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: [VERSION] | **Ratified**: [DATE] | **Last Amended**: [DATE]

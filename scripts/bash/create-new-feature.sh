@@ -41,7 +41,9 @@ while [ $i -le $# ]; do
             BRANCH_NUMBER="$next_arg"
             ;;
         --help|-h) 
-            echo "Usage: $0 [--json] [--short-name <name>] [--number N] <feature_description>"
+            echo "Usage: $0 [--json] [--short-name <name>] [--number N] <description>"
+            echo ""
+            echo "Description: feature, book, or universe scope (e.g. feature description, book/series outline)."
             echo ""
             echo "Options:"
             echo "  --json              Output in JSON format"
@@ -51,6 +53,7 @@ while [ $i -le $# ]; do
             echo ""
             echo "Examples:"
             echo "  $0 'Add user authentication system' --short-name 'user-auth'"
+            echo "  $0 'Book one of the Dark Tower series' --short-name 'book-dark-tower'"
             echo "  $0 'Implement OAuth2 integration for API' --number 5"
             exit 0
             ;;
@@ -63,7 +66,7 @@ done
 
 FEATURE_DESCRIPTION="${ARGS[*]}"
 if [ -z "$FEATURE_DESCRIPTION" ]; then
-    echo "Usage: $0 [--json] [--short-name <name>] [--number N] <feature_description>" >&2
+    echo "Usage: $0 [--json] [--short-name <name>] [--number N] <description>" >&2
     exit 1
 fi
 

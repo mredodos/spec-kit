@@ -45,6 +45,8 @@ env/
 *.zip
 sdd-*/
 docs/dev
+# Book-universe framework: author content (created by universe-init when testing from repo)
+universe/
 
 # Extension system
 .specify/extensions/.cache/

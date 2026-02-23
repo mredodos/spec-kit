@@ -74,7 +74,7 @@ The key is treating specifications as the source of truth, with code as the gene
 
 The SDD methodology is significantly enhanced through three powerful commands that automate the specification → planning → tasking workflow:
 
-### The `/speckit.specify` Command
+### The `/speckit.outline` Command
 
 This command transforms a simple feature description (the user-prompt) into a complete, structured specification with automatic repository management:
 
@@ -83,7 +83,7 @@ This command transforms a simple feature description (the user-prompt) into a co
 3. **Template-Based Generation**: Copies and customizes the feature specification template with your requirements
 4. **Directory Structure**: Creates the proper `specs/[branch-name]/` structure for all related documents
 
-### The `/speckit.plan` Command
+### The `/speckit.structure` Command
 
 Once a feature specification exists, this command creates a comprehensive implementation plan:
 
@@ -121,7 +121,7 @@ Total: ~12 hours of documentation work
 
 ```bash
 # Step 1: Create the feature specification (5 minutes)
-/speckit.specify Real-time chat system with message history and user presence
+/speckit.outline Real-time chat system with message history and user presence
 
 # This automatically:
 # - Creates branch "003-chat-system"
@@ -129,7 +129,7 @@ Total: ~12 hours of documentation work
 # - Populates it with structured requirements
 
 # Step 2: Generate implementation plan (5 minutes)
-/speckit.plan WebSocket for real-time messaging, PostgreSQL for history, Redis for presence
+/speckit.structure WebSocket for real-time messaging, PostgreSQL for history, Redis for presence
 
 # Step 3: Generate executable tasks (5 minutes)
 /speckit.tasks
