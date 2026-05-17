@@ -10,19 +10,21 @@
 # ]
 # ///
 """
-Specify CLI - Setup tool for Specify projects
+Book & Universe Writing Framework CLI (speckit-book).
+Independent from Spec Kit (specify-cli). Coexists with it.
 
 Usage:
-    uvx specify-cli.py init <project-name>
-    uvx specify-cli.py init .
-    uvx specify-cli.py init --here
-
-Or install globally:
-    uv tool install --from specify-cli.py specify-cli
-    specify init <project-name>
-    specify init .
-    specify init --here
+    uv tool install speckit-book --from .
+    book init <project-name>
+    book init .
+    book init --here
 """
+# CLI identity (independent product; do not conflict with specify-cli)
+CLI_NAME = "book"
+PACKAGE_NAME = "speckit-book"
+# Repo for template releases (override with SPECKIT_BOOK_REPO_OWNER / SPECKIT_BOOK_REPO_NAME for your fork)
+REPO_OWNER = os.environ.get("SPECKIT_BOOK_REPO_OWNER", "github")
+REPO_NAME = os.environ.get("SPECKIT_BOOK_REPO_NAME", "spec-kit")
 
 import os
 import subprocess
@@ -265,15 +267,15 @@ SCRIPT_TYPE_CHOICES = {"sh": "POSIX Shell (bash/zsh)", "ps": "PowerShell"}
 CLAUDE_LOCAL_PATH = Path.home() / ".claude" / "local" / "claude"
 
 BANNER = """
-███████╗██████╗ ███████╗ ██████╗██╗███████╗██╗   ██╗
-██╔════╝██╔══██╗██╔════╝██╔════╝██║██╔════╝╚██╗ ██╔╝
-███████╗██████╔╝█████╗  ██║     ██║█████╗   ╚████╔╝ 
-╚════██║██╔═══╝ ██╔══╝  ██║     ██║██╔══╝    ╚██╔╝  
-███████║██║     ███████╗╚██████╗██║██║        ██║   
-╚══════╝╚═╝     ╚══════╝ ╚═════╝╚═╝╚═╝        ╚═╝   
+██████╗  ██████╗  ██████╗ ██╗  ██╗
+██╔══██╗██╔═══██╗██╔═══██╗██║ ██╔╝
+██████╔╝██║   ██║██║   ██║█████╔╝ 
+██╔══██╗██║   ██║██║   ██║██╔═██╗ 
+██████╔╝╚██████╔╝╚██████╔╝██║  ██╗
+╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝
 """
 
-TAGLINE = "GitHub Spec Kit - Spec-Driven Development Toolkit"
+TAGLINE = "Book & Universe Writing Framework - outline → structure → writing steps"
 class StepTracker:
     """Track and render hierarchical steps without emojis, similar to Claude Code tree output.
     Supports live auto-refresh via an attached refresh callback.
@@ -466,8 +468,8 @@ class BannerGroup(TyperGroup):
 
 
 app = typer.Typer(
-    name="specify",
-    help="Setup tool for Specify spec-driven development projects",
+    name=CLI_NAME,
+    help="Book & Universe Writing Framework — outline, structure, writing steps. Independent from Spec Kit.",
     add_completion=False,
     invoke_without_command=True,
     cls=BannerGroup,
@@ -492,7 +494,7 @@ def callback(ctx: typer.Context):
     """Show banner when no subcommand is provided."""
     if ctx.invoked_subcommand is None and "--help" not in sys.argv and "-h" not in sys.argv:
         show_banner()
-        console.print(Align.center("[dim]Run 'specify --help' for usage information[/dim]"))
+        console.print(Align.center(f"[dim]Run '{CLI_NAME} --help' for usage information[/dim]"))
         console.print()
 
 def run_command(cmd: list[str], check_return: bool = True, capture: bool = False, shell: bool = False) -> Optional[str]:
@@ -667,14 +669,12 @@ def merge_json_files(existing_path: Path, new_content: dict, verbose: bool = Fal
     return merged
 
 def download_template_from_github(ai_assistant: str, download_dir: Path, *, script_type: str = "sh", verbose: bool = True, show_progress: bool = True, client: httpx.Client = None, debug: bool = False, github_token: str = None) -> Tuple[Path, dict]:
-    repo_owner = "github"
-    repo_name = "spec-kit"
     if client is None:
         client = httpx.Client(verify=ssl_context)
 
     if verbose:
         console.print("[cyan]Fetching latest release information...[/cyan]")
-    api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
+    api_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest"
 
     try:
         response = client.get(
@@ -1238,20 +1238,20 @@ def init(
     6. Optionally set up AI assistant commands
     
     Examples:
-        specify init my-project
-        specify init my-project --ai claude
-        specify init my-project --ai copilot --no-git
-        specify init --ignore-agent-tools my-project
-        specify init . --ai claude         # Initialize in current directory
-        specify init .                     # Initialize in current directory (interactive AI selection)
-        specify init --here --ai claude    # Alternative syntax for current directory
-        specify init --here --ai codex
-        specify init --here --ai codebuddy
-        specify init --here
-        specify init --here --force  # Skip confirmation when current directory not empty
-        specify init my-project --ai claude --ai-skills   # Install agent skills
-        specify init --here --ai gemini --ai-skills
-        specify init my-project --ai generic --ai-commands-dir .myagent/commands/  # Unsupported agent
+        book init my-project
+        book init my-project --ai claude
+        book init my-project --ai copilot --no-git
+        book init --ignore-agent-tools my-project
+        book init . --ai claude         # Initialize in current directory
+        book init .                     # Initialize in current directory (interactive AI selection)
+        book init --here --ai claude    # Alternative syntax for current directory
+        book init --here --ai codex
+        book init --here --ai codebuddy
+        book init --here
+        book init --here --force  # Skip confirmation when current directory not empty
+        book init my-project --ai claude --ai-skills   # Install agent skills
+        book init --here --ai gemini --ai-skills
+        book init my-project --ai generic --ai-commands-dir .myagent/commands/  # Unsupported agent
     """
 
     show_banner()
@@ -1270,7 +1270,7 @@ def init(
 
     if ai_skills and not ai_assistant:
         console.print("[red]Error:[/red] --ai-skills requires --ai to be specified")
-        console.print("[yellow]Usage:[/yellow] specify init <project> --ai <agent> --ai-skills")
+        console.print(f"[yellow]Usage:[/yellow] {CLI_NAME} init <project> --ai <agent> --ai-skills")
         raise typer.Exit(1)
 
     if here:
@@ -1305,7 +1305,7 @@ def init(
     current_dir = Path.cwd()
 
     setup_lines = [
-        "[cyan]Specify Project Setup[/cyan]",
+        f"[cyan]{CLI_NAME.capitalize()} Project Setup[/cyan]",
         "",
         f"{'Project':<15} [green]{project_path.name}[/green]",
         f"{'Working Path':<15} [dim]{current_dir}[/dim]",
@@ -1340,7 +1340,7 @@ def init(
     if selected_ai == "generic":
         if not ai_commands_dir:
             console.print("[red]Error:[/red] --ai-commands-dir is required when using --ai generic")
-            console.print("[dim]Example: specify init my-project --ai generic --ai-commands-dir .myagent/commands/[/dim]")
+            console.print(f"[dim]Example: {CLI_NAME} init my-project --ai generic --ai-commands-dir .myagent/commands/[/dim]")
             raise typer.Exit(1)
     elif ai_commands_dir:
         console.print(f"[red]Error:[/red] --ai-commands-dir can only be used with --ai generic (not '{selected_ai}')")
@@ -1628,7 +1628,7 @@ def version():
     # Get CLI version from package metadata
     cli_version = "unknown"
     try:
-        cli_version = importlib.metadata.version("specify-cli")
+        cli_version = importlib.metadata.version(PACKAGE_NAME)
     except Exception:
         # Fallback: try reading from pyproject.toml if running from source
         try:
@@ -1642,9 +1642,7 @@ def version():
             pass
     
     # Fetch latest template release version
-    repo_owner = "github"
-    repo_name = "spec-kit"
-    api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
+    api_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest"
     
     template_version = "unknown"
     release_date = "unknown"
@@ -1711,7 +1709,7 @@ def get_speckit_version() -> str:
     """Get current spec-kit version."""
     import importlib.metadata
     try:
-        return importlib.metadata.version("specify-cli")
+        return importlib.metadata.version(PACKAGE_NAME)
     except Exception:
         # Fallback: try reading from pyproject.toml
         try:
@@ -1751,7 +1749,7 @@ def extension_list(
     if not installed and not (available or all_extensions):
         console.print("[yellow]No extensions installed.[/yellow]")
         console.print("\nInstall an extension with:")
-        console.print("  specify extension add <extension-name>")
+        console.print(f"  {CLI_NAME} extension add <extension-name>")
         return
 
     if installed:
@@ -1768,7 +1766,7 @@ def extension_list(
 
     if available or all_extensions:
         console.print("\nInstall an extension:")
-        console.print("  [cyan]specify extension add <name>[/cyan]")
+        console.print(f"  [cyan]{CLI_NAME} extension add <name>[/cyan]")
 
 
 @extension_app.command("add")
@@ -1856,7 +1854,7 @@ def extension_add(
                 if not ext_info:
                     console.print(f"[red]Error:[/red] Extension '{extension}' not found in catalog")
                     console.print("\nSearch available extensions:")
-                    console.print("  specify extension search")
+                    console.print(f"  {CLI_NAME} extension search")
                     raise typer.Exit(1)
 
                 # Download extension ZIP
@@ -1949,7 +1947,7 @@ def extension_remove(
             console.print(f"\nConfig files preserved in .specify/extensions/{extension}/")
         else:
             console.print(f"\nConfig files backed up to .specify/extensions/.backup/{extension}/")
-        console.print(f"\nTo reinstall: specify extension add {extension}")
+        console.print(f"\nTo reinstall: {CLI_NAME} extension add {extension}")
     else:
         console.print("[red]Error:[/red] Failed to remove extension")
         raise typer.Exit(1)
@@ -1986,7 +1984,7 @@ def extension_search(
                 console.print("\nTry:")
                 console.print("  • Broader search terms")
                 console.print("  • Remove filters")
-                console.print("  • specify extension search (show all)")
+                console.print(f"  • {CLI_NAME} extension search (show all)")
             raise typer.Exit(0)
 
         console.print(f"\n[green]Found {len(results)} extension(s):[/green]\n")
@@ -2017,7 +2015,7 @@ def extension_search(
                 console.print(f"  [dim]Repository:[/dim] {ext['repository']}")
 
             # Install command
-            console.print(f"\n  [cyan]Install:[/cyan] specify extension add {ext['id']}")
+            console.print(f"\n  [cyan]Install:[/cyan] {CLI_NAME} extension add {ext['id']}")
             console.print()
 
     except ExtensionError as e:
@@ -2050,7 +2048,7 @@ def extension_info(
 
         if not ext_info:
             console.print(f"[red]Error:[/red] Extension '{extension}' not found in catalog")
-            console.print("\nTry: specify extension search")
+            console.print(f"\nTry: {CLI_NAME} extension search")
             raise typer.Exit(1)
 
         # Header
@@ -2124,10 +2122,10 @@ def extension_info(
         is_installed = manager.registry.is_installed(ext_info['id'])
         if is_installed:
             console.print("[green]✓ Installed[/green]")
-            console.print(f"\nTo remove: specify extension remove {ext_info['id']}")
+            console.print(f"\nTo remove: {CLI_NAME} extension remove {ext_info['id']}")
         else:
             console.print("[yellow]Not installed[/yellow]")
-            console.print(f"\n[cyan]Install:[/cyan] specify extension add {ext_info['id']}")
+            console.print(f"\n[cyan]Install:[/cyan] {CLI_NAME} extension add {ext_info['id']}")
 
     except ExtensionError as e:
         console.print(f"\n[red]Error:[/red] {e}")
@@ -2229,8 +2227,8 @@ def extension_update(
                 "[yellow]Note:[/yellow] Automatic update not yet implemented. "
                 "Please update manually:"
             )
-            console.print(f"  specify extension remove {ext_id} --keep-config")
-            console.print(f"  specify extension add {ext_id}")
+            console.print(f"  {CLI_NAME} extension remove {ext_id} --keep-config")
+            console.print(f"  {CLI_NAME} extension add {ext_id}")
 
         console.print(
             "\n[cyan]Tip:[/cyan] Automatic updates will be available in a future version"
@@ -2328,7 +2326,7 @@ def extension_disable(
 
     console.print(f"[green]✓[/green] Extension '{extension}' disabled")
     console.print("\nCommands will no longer be available. Hooks will not execute.")
-    console.print(f"To re-enable: specify extension enable {extension}")
+    console.print(f"To re-enable: {CLI_NAME} extension enable {extension}")
 
 
 def main():

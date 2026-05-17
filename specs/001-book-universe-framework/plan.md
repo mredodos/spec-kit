@@ -43,7 +43,7 @@ Transform Spec Kit from an app-development framework into a **book and universe 
 **Storage**: File-based only. All entities (universe, series, book, characters, plotlines, chapters, continuity log, timeline, foreshadowing register, versioning metadata) are files under a project directory (e.g. `universe/` at project root). Framework config and templates live under `.universe/`.  
 **Testing**: Manual validation (author workflows); script linting (shellcheck, PSScriptAnalyzer) for scripts; no automated test suite required for MVP.  
 **Target Platform**: Linux/macOS (bash), Windows (PowerShell); cross-platform where scripts are duplicated in bash and PowerShell.  
-**Project Type**: CLI/toolkit—templates, scripts, and directory conventions; consumed by authors via shell commands and optional future CLI.  
+**Project Type**: CLI/toolkit—templates, scripts, and directory conventions; consumed by authors via the **book** CLI (independent from Spec Kit’s `specify` CLI) and shell scripts.  
 **Performance Goals**: Scripts complete in under 5 seconds for typical operations (init, add-book, add-chapter, generate prompt); no strict latency target for AI generation (handled by external agent).  
 **Constraints**: File-based only; single author per project; no export to PDF/DOCX/ePub; no bundled AI provider; generation via author-chosen agent.  
 **Scale/Scope**: One universe per project directory; multiple series/books per universe; chapters and versioning as needed; context-size strategy (multi-request, summarization) per FR-016.
@@ -166,7 +166,7 @@ scripts/                      # Author-facing scripts at repo root only (not und
 └── .universe/                 # framework config (if present); author may not edit
 ```
 
-**Structure Decision**: Single “framework” layout: templates under `.universe/templates/universe/`, author-facing scripts at repository root only in `scripts/bash/` and `scripts/powershell/` (no `.universe/scripts/` in this implementation; T001 does not create it). Script names: `universe-*` / `Universe-*`, `validate-setup`, `add-book`, `setup-structure`. Author content lives under `universe/` at project root. No developer jargon (spec, plan, tasks, feature) in author-facing paths or script names. No separate backend/frontend; no new binary CLI in this scope—invocation is via bash or PowerShell scripts. Directory structure may be refined in tasks (e.g. flat vs nested `chapters`).
+**Structure Decision**: Single “framework” layout: templates under `.universe/templates/universe/`, author-facing scripts at repository root only in `scripts/bash/` and `scripts/powershell/` (no `.universe/scripts/` in this implementation; T001 does not create it). Script names: `universe-*` / `Universe-*`, `validate-setup`, `add-book`, `setup-structure`. Author content lives under `universe/` at project root. No developer jargon (spec, plan, tasks, feature) in author-facing paths or script names. **Independent product and CLI**: The book-universe framework is a **separate product** from the original Spec Kit. It has its own package name (`speckit-book`), CLI command (`book`), and installation—so it can coexist with `specify-cli`. Invocation is via the `book` CLI and bash or PowerShell scripts. Directory structure may be refined in tasks (e.g. flat vs nested `chapters`).
 
 ## Complexity Tracking
 

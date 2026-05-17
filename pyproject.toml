@@ -1,7 +1,7 @@
 [project]
-name = "specify-cli"
+name = "speckit-book"
 version = "0.1.5"
-description = "Specify CLI, part of GitHub Spec Kit. A tool to bootstrap your projects for Spec-Driven Development (SDD)."
+description = "Book & Universe Writing Framework CLI. Bootstrap projects for outline → structure → writing steps, with continuity and versioning. Independent from Spec Kit (specify-cli)."
 requires-python = ">=3.11"
 dependencies = [
     "typer",
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-specify = "specify_cli:main"
+book = "specify_cli:main"
 
 [build-system]
 requires = ["hatchling"]
